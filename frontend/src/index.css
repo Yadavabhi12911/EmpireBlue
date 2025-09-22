@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: font1;
+    src: url("/font/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTUGmu1aB.woff2");
+}
+@font-face {
+    font-family: font2;
+    src: url("/font/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-muw.woff2");
+}
+
+/* Hide scrollbars for all elements */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* WebKit browsers (Chrome, Safari, Edge) */
+}
+
+
+body{
+    width: 100vw;
+    height: 100vh;
+}
+
+
+ /* --- Custom Slow Bounce Animation --- */
+@keyframes slow-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15%);
+  }
+}
+
+.animate-slow-bounce {
+  animation: slow-bounce 4s ease-in-out infinite;
+}
+
+@keyframes slow-one {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7%);
+  }
+}
+
+.animate-slow-one {
+  animation: slow-one 10s ease-in-out infinite;
+}
+
+.outline-text {
+  color: transparent;
+  -webkit-text-stroke-width: 1.5px;
+  -webkit-text-stroke-color: #03009b;
+}
