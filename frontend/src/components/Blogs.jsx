@@ -55,6 +55,7 @@ const Blogs = () => {
    const [loadingDetails, setLoadingDetails] = useState(false);
   const [loadingImage, setLoadingImage] = useState(false);
 const [posting, setPosting] = useState(false);
+const [allBlogs, setallBlogs] = useState([]);
 
   const handleInputChange = (e) =>
     setNewBlog({ ...newBlog, [e.target.name]: e.target.value });
@@ -71,48 +72,50 @@ const [posting, setPosting] = useState(false);
     }
   };
 
-  const handleAddBlog = async (e) => {
-    e.preventDefault();
-    if (!newBlog.title || !newBlog.description || !newBlog.imageFile) {
-      alert("All fields are required");
-      return;
-    }
-     
-    if( !isAuthenticated){
-      navigate('/login')
-      return
-    }
-
-    try {
-       setPosting(true);
-      const data = await postBlog({
-        title: newBlog.title,
-        description: newBlog.description,
-        imageFile: newBlog.imageFile,
-      });
-
-      setBlogs([data, ...blogs]);
-
-      setNewBlog({
-        title: "",
-        description: "",
-        imageFile: null,
-        imagePreview: "",
-      });
-    } catch (error) {
-      console.error("Failed to post blog:", error);
-      alert("Failed to post blog");
-    }finally {
-    setPosting(false); 
+const handleAddBlog = async (e) => {
+  e.preventDefault();
+  if (!newBlog.title || !newBlog.description || !newBlog.imageFile) {
+    alert("All fields are required");
+    return;
   }
-  };
+
+  if (!isAuthenticated) {
+    navigate("/login");
+    return;
+  }
+
+  try {
+    setPosting(true);
+    const data = await postBlog({
+      title: newBlog.title,
+      description: newBlog.description,
+      imageFile: newBlog.imageFile,
+    });
+
+   
+    setallBlogs((prevBlogs) => [...prevBlogs, data]);
+
+    setNewBlog({
+      title: "",
+      description: "",
+      imageFile: null,
+      imagePreview: "",
+    });
+  } catch (error) {
+    console.error("Failed to post blog:", error);
+    alert("Failed to post blog");
+  } finally {
+    setPosting(false);
+  }
+};
+
 
   const handleCardClick = (id) => {
     navigate(`/blog/${id}`);
   };
 
   const [loading, setLoading] = useState(false);
-  const [allBlogs, setallBlogs] = useState([]);
+  
   const [editing, setEditing] = useState(null);
   const [editForm, setEditForm] = useState({ title: "", description: "", imageFile: null, imagePreview: "" });
 
@@ -252,7 +255,7 @@ const [posting, setPosting] = useState(false);
   disabled={posting}
   className={`w-full py-3 mt-5 rounded-xl font-semibold transition ${
     posting
-      ? "bg-gray-400 cursor-not-allowed"
+      ? "bg-[#4284FF] cursor-not-allowed"
       : "bg-[#03009b] text-white hover:bg-[#4284FF]"
   }`}
 >
