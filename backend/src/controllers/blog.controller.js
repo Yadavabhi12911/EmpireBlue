@@ -21,7 +21,7 @@ const publishBlog = asyncHandler(async (req, res) => {
     let postBlog = await Blog.create({
         title,
         description,
-        image: uploadedResponse.url
+        image: uploadedResponse.secure_url
     })
 
     if (!postBlog) {
@@ -84,7 +84,7 @@ const updateBlogImage = asyncHandler(async (req, res) => {
     let updatedImage = await Blog.findByIdAndUpdate(
         id,
         {
-            image: uploadNewImage?.url,
+            image: uploadNewImage?.secure_url,
         },
         { new: true }
     )
